@@ -48,6 +48,11 @@ int main()
 
 	GLuint backgroundShader = createShader("vertexShader.glsl", "fragmentShader.glsl");
 
+
+	// Enable blending
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	// Render-Loop
 	while (!glfwWindowShouldClose(window))
 	{
