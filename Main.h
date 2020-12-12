@@ -7,11 +7,11 @@
 
 #define CHECK_ERROR() \
 {\
-    GLenum err = glGetError(); \
-    if (err != GL_NO_ERROR) \
-    {\
-        printf("glGetError returns %d\n", err); \
-    }\
+	GLenum err = glGetError(); \
+	if (err != GL_NO_ERROR) \
+	{\
+		printf("glGetError returns %d\n", err); \
+	}\
 }
 
 GLuint createShader(const char* vertexFilename, const char* fragmentFilename);
