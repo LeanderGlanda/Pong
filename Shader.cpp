@@ -46,7 +46,7 @@ GLuint createShader(const char* vertexFilename, const char* fragmentFilename)
 	int rvalue;
 	glGetShaderiv(vs, GL_COMPILE_STATUS, &rvalue);
 	if (!rvalue) {
-		fprintf(stderr, "Error in compiling the compute shader\n");
+		fprintf(stderr, "Error in compiling the vertex shader\n");
 		GLchar* log = new GLchar[10240];
 		GLsizei length;
 		glGetShaderInfoLog(vs, 10239, &length, log);
@@ -59,7 +59,7 @@ GLuint createShader(const char* vertexFilename, const char* fragmentFilename)
 	glCompileShader(fs);
 	glGetShaderiv(fs, GL_COMPILE_STATUS, &rvalue);
 	if (!rvalue) {
-		fprintf(stderr, "Error in compiling the compute shader\n");
+		fprintf(stderr, "Error in compiling the fragment shader\n");
 		GLchar* log = new GLchar[10240];
 		GLsizei length;
 		glGetShaderInfoLog(fs, 10239, &length, log);
