@@ -4,6 +4,7 @@
 #include <GL/GL.h>
 
 #include <iostream>
+#include <vector>
 
 #define CHECK_ERROR() \
 {\

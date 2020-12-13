@@ -3,6 +3,9 @@
 int width = 1280;
 int height = 720;
 
+bool refreshOverlay = false;
+void framebuffer_size_callback(GLFWwindow* window, int _width, int _height);
+
 int main()
 {
 	// glfw: initialize and configure
@@ -20,8 +23,8 @@ int main()
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
-	/*glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	glfwSetMouseButtonCallback(window, mouse_button_callback);
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	/*glfwSetMouseButtonCallback(window, mouse_button_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 	glfwSetKeyCallback(window, key_callback);*/
 
@@ -56,6 +59,12 @@ int main()
 	// Render-Loop
 	while (!glfwWindowShouldClose(window))
 	{
+		if (refreshOverlay)
+		{
+			vertexCount[0] = setupBackgroundImage(VAO[0]);
+			vertexCount[1] = setupOverlay(VAO[1]);
+		}
+
 		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
@@ -77,4 +86,12 @@ int main()
 
 	// glfw: terminate, clearing all previously allocated GLFW resources.
 	glfwTerminate();
+}
+
+void framebuffer_size_callback(GLFWwindow* window, int _width, int _height)
+{
+	glViewport(0, 0, _width, _height);
+	width = _width;
+	height = _height;
+	refreshOverlay = true;
 }
