@@ -19,3 +19,6 @@ GLuint createShader(const char* vertexFilename, const char* fragmentFilename);
 
 int setupBackgroundImage(GLuint VAO);
 int setupOverlay(GLuint VAO);
+
+extern int height;
+extern int width;
