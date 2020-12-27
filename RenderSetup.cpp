@@ -60,7 +60,7 @@ int setupOverlay(GLuint VAO)
 		-1.0f, -0.9f, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f, // bottom top left 
 	};
 
-	unsigned int indices[] = {
+	std::vector<GLuint> indices{
 		0, 1, 3, // first triangle
 		1, 2, 3, // second triangle
 		4, 5, 7, // third triangle
@@ -77,7 +77,7 @@ int setupOverlay(GLuint VAO)
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), indices.data(), GL_STATIC_DRAW);
 
 	// position attribute
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)0);
@@ -92,5 +92,5 @@ int setupOverlay(GLuint VAO)
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);
 
-	return sizeof(indices) / 4;
+	return indices.size();
 }
