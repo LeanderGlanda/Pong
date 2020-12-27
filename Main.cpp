@@ -56,6 +56,7 @@ int main()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	using namespace std::chrono_literals;
 	// Render-Loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -74,6 +75,8 @@ int main()
 			glBindVertexArray(VAO[i]);
 			glDrawElements(GL_TRIANGLES, vertexCount[i], GL_UNSIGNED_INT, 0);
 		}
+
+		std::this_thread::sleep_for(10ms);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
