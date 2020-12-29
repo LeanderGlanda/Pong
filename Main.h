@@ -20,6 +20,7 @@ GLuint createShader(const char* vertexFilename, const char* fragmentFilename);
 
 int drawBackgroundImage(GLuint VAO);
 int drawOverlay(GLuint VAO);
+int drawPaddle(GLuint VAO);
 
 extern int height;
 extern int width;

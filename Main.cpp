@@ -37,13 +37,14 @@ int main()
 
 	// Setup for render
 
-	GLuint VAO[2];
-	glGenVertexArrays(2, VAO);
+	GLuint VAO[3];
+	glGenVertexArrays(3, VAO);
 
-	int vertexCount[2];
+	int vertexCount[3];
 
 	vertexCount[0] = drawBackgroundImage(VAO[0]);
 	vertexCount[1] = drawOverlay(VAO[1]);
+	vertexCount[2] = drawPaddle(VAO[2]);
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -64,13 +65,14 @@ int main()
 		{
 			vertexCount[0] = drawBackgroundImage(VAO[0]);
 			vertexCount[1] = drawOverlay(VAO[1]);
+			vertexCount[2] = drawPaddle(VAO[2]);
 		}
 
 		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glUseProgram(backgroundShader);
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < 3; i++)
 		{
 			glBindVertexArray(VAO[i]);
 			glDrawElements(GL_TRIANGLES, vertexCount[i], GL_UNSIGNED_INT, 0);
