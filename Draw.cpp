@@ -1,6 +1,6 @@
 #include "Main.h"
 
-int setupBackgroundImage(GLuint VAO)
+int drawBackgroundImage(GLuint VAO)
 {
 	// create the vertices and the indices
 	float vertices[] = {
@@ -49,7 +49,7 @@ struct Vertex
 	float x, y, z, r, g, b, a;
 };
 
-int setupOverlay(GLuint VAO)
+int drawOverlay(GLuint VAO)
 {
 	// create the vertices and the indices
 
@@ -88,7 +88,7 @@ int setupOverlay(GLuint VAO)
 		vertices.push_back({-partWidth, boCo, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f });
 		vertices.push_back({-partWidth, toCo, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f });
 		toCo = boCo - offsetLength;
-		
+
 		indices.push_back(8 + 4 * i + 0);
 		indices.push_back(8 + 4 * i + 1);
 		indices.push_back(8 + 4 * i + 3);

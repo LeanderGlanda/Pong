@@ -62,8 +62,8 @@ int main()
 	{
 		if (refreshOverlay)
 		{
-			vertexCount[0] = setupBackgroundImage(VAO[0]);
-			vertexCount[1] = setupOverlay(VAO[1]);
+			vertexCount[0] = drawBackgroundImage(VAO[0]);
+			vertexCount[1] = drawOverlay(VAO[1]);
 		}
 
 		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
