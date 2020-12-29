@@ -42,8 +42,8 @@ int main()
 
 	int vertexCount[2];
 
-	vertexCount[0] = setupBackgroundImage(VAO[0]);
-	vertexCount[1] = setupOverlay(VAO[1]);
+	vertexCount[0] = drawBackgroundImage(VAO[0]);
+	vertexCount[1] = drawOverlay(VAO[1]);
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
