@@ -1,4 +1,5 @@
 #include "Main.h"
+#include "Draw.h"
 
 int width = 1280;
 int height = 720;
@@ -36,15 +37,8 @@ int main()
 	}
 
 	// Setup for render
-
-	GLuint VAO[3];
-	glGenVertexArrays(3, VAO);
-
-	int vertexCount[3];
-
-	vertexCount[0] = drawBackgroundImage(VAO[0]);
-	vertexCount[1] = drawOverlay(VAO[1]);
-	vertexCount[2] = drawPaddle(VAO[2]);
+	Draw draw;
+	draw.update();
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -63,9 +57,7 @@ int main()
 	{
 		if (refreshOverlay)
 		{
-			vertexCount[0] = drawBackgroundImage(VAO[0]);
-			vertexCount[1] = drawOverlay(VAO[1]);
-			vertexCount[2] = drawPaddle(VAO[2]);
+			draw.update();
 		}
 
 		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
@@ -74,8 +66,8 @@ int main()
 		glUseProgram(backgroundShader);
 		for (int i = 0; i < 3; i++)
 		{
-			glBindVertexArray(VAO[i]);
-			glDrawElements(GL_TRIANGLES, vertexCount[i], GL_UNSIGNED_INT, 0);
+			glBindVertexArray(draw.VAO[i]);
+			glDrawElements(GL_TRIANGLES, draw.vertexCount[i], GL_UNSIGNED_INT, 0);
 		}
 
 		std::this_thread::sleep_for(10ms);
@@ -86,7 +78,6 @@ int main()
 
 
 	// Clean up
-	glDeleteVertexArrays(2, VAO);
 	glDeleteProgram(backgroundShader);
 
 	// glfw: terminate, clearing all previously allocated GLFW resources.

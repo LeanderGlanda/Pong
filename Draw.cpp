@@ -1,6 +1,34 @@
 #include "Main.h"
+#include "Draw.h"
 
-int drawBackgroundImage(GLuint VAO)
+GLuint VAO[3];
+int vertexCount[3];
+float yOffset;
+struct Draw::Vertex
+{
+	float x, y, z, r, g, b, a;
+};
+
+Draw::Draw()
+{
+	glGenVertexArrays(3, VAO);
+	int vertexCount[] = { 0,0,0 };
+	yOffset = 0;
+}
+Draw::~Draw()
+{
+	glDeleteVertexArrays(3, VAO);
+}
+
+void Draw::update()
+{
+	vertexCount[0] = drawBackgroundImage(VAO[0]);
+	vertexCount[1] = drawOverlay(VAO[1]);
+	vertexCount[2] = drawPaddle(VAO[2]);
+}
+
+
+int Draw::drawBackgroundImage(GLuint VAO)
 {
 	// create the vertices and the indices
 	float vertices[] = {
@@ -44,27 +72,22 @@ int drawBackgroundImage(GLuint VAO)
 	return sizeof(indices) / 4;
 }
 
-struct Vertex
-{
-	float x, y, z, r, g, b, a;
-};
-
-int drawOverlay(GLuint VAO)
+int Draw::drawOverlay(GLuint VAO)
 {
 	// create the vertices and the indices
 
 	float osTB = 1 - (36.0f / (height / 2)); // offsetTopBottom
 	std::vector<Vertex> vertices{
-		  // positions         // colors        
-		{ 1.0f,  1.0f, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }, // top top right
-		{ 1.0f,  osTB, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }, // top bottom right
-		{-1.0f,  osTB, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }, // top bottom left
-		{-1.0f,  1.0f, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }, // top top left 
+		// positions         // colors        
+	  { 1.0f,  1.0f, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }, // top top right
+	  { 1.0f,  osTB, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }, // top bottom right
+	  {-1.0f,  osTB, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }, // top bottom left
+	  {-1.0f,  1.0f, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }, // top top left 
 
-		{ 1.0f, -osTB, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }, // bottom top right
-		{ 1.0f, -1.0f, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }, // bottom bottom right
-		{-1.0f, -1.0f, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }, // bottom bottom left
-		{-1.0f, -osTB, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }  // bottom top left 
+	  { 1.0f, -osTB, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }, // bottom top right
+	  { 1.0f, -1.0f, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }, // bottom bottom right
+	  {-1.0f, -1.0f, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }, // bottom bottom left
+	  {-1.0f, -osTB, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }  // bottom top left 
 	};
 
 	std::vector<GLuint> indices{
@@ -85,8 +108,8 @@ int drawOverlay(GLuint VAO)
 		float boCo = toCo - partLength; // bottomCord
 		vertices.push_back({ partWidth, toCo, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f });
 		vertices.push_back({ partWidth, boCo, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f });
-		vertices.push_back({-partWidth, boCo, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f });
-		vertices.push_back({-partWidth, toCo, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f });
+		vertices.push_back({ -partWidth, boCo, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f });
+		vertices.push_back({ -partWidth, toCo, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f });
 		toCo = boCo - offsetLength;
 
 		indices.push_back(8 + 4 * i + 0);
@@ -125,17 +148,17 @@ int drawOverlay(GLuint VAO)
 	return indices.size();
 }
 
-int drawPaddle(GLuint VAO)
+int Draw::drawPaddle(GLuint VAO)
 {
 	// create the vertices and the indices
 	float xDim = 72.0f / width;
 	float yDim = 144.0f / height;
 	float vertices[] = {
-		// positions						   // colors
-		 1 - 18.0f / width,			 yDim, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top right
-		 1 - 18.0f / width,			-yDim, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom right
-		 1 - 18.0f / width - xDim,	-yDim, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom left
-		 1 - 18.0f / width - xDim,   yDim, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top left 
+		// positions										 // colors
+		 1 - 18.0f / width,			 yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top right
+		 1 - 18.0f / width,			-yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom right
+		 1 - 18.0f / width - xDim,	-yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom left
+		 1 - 18.0f / width - xDim,   yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top left 
 	};
 
 	unsigned int indices[] = {

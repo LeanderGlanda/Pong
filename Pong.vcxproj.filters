@@ -24,6 +24,9 @@
     <ClCompile Include="Draw.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="GameLogic.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertexShader.glsl" />
@@ -31,6 +34,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
