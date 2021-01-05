@@ -1,5 +1,4 @@
 #include "Main.h"
-#include "Draw.h"
 
 GLuint VAO[3];
 int vertexCount[3];
@@ -12,7 +11,9 @@ struct Draw::Vertex
 Draw::Draw()
 {
 	glGenVertexArrays(3, VAO);
-	int vertexCount[] = { 0,0,0 };
+	vertexCount[0] = 0;
+	vertexCount[1] = 0;
+	vertexCount[2] = 0;
 	yOffset = 0;
 }
 Draw::~Draw()

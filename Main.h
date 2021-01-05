@@ -7,6 +7,8 @@
 #include <vector>
 #include <thread>
 
+#include "Draw.h"
+
 #define CHECK_ERROR() \
 {\
 	GLenum err = glGetError(); \
@@ -17,6 +19,7 @@
 }
 
 GLuint createShader(const char* vertexFilename, const char* fragmentFilename);
+void updatePaddle(Draw& draw);
 
 extern int height;
 extern int width;

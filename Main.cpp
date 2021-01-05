@@ -1,10 +1,8 @@
 #include "Main.h"
-#include "Draw.h"
 
 int width = 1280;
 int height = 720;
 
-bool refreshOverlay = false;
 void framebuffer_size_callback(GLFWwindow* window, int _width, int _height);
 
 int main()
@@ -55,10 +53,9 @@ int main()
 	// Render-Loop
 	while (!glfwWindowShouldClose(window))
 	{
-		if (refreshOverlay)
-		{
-			draw.update();
-		}
+		updatePaddle(draw);
+
+		draw.update();
 
 		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -89,5 +86,4 @@ void framebuffer_size_callback(GLFWwindow* window, int _width, int _height)
 	glViewport(0, 0, _width, _height);
 	width = _width;
 	height = _height;
-	refreshOverlay = true;
 }
