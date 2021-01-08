@@ -2,7 +2,6 @@
 
 GLuint VAO[3];
 int vertexCount[3];
-float yOffset;
 struct Draw::Vertex
 {
 	float x, y, z, r, g, b, a;
@@ -146,7 +145,7 @@ int Draw::drawOverlay(GLuint VAO)
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);
 
-	return indices.size();
+	return (int)indices.size();
 }
 
 int Draw::drawPaddle(GLuint VAO)
@@ -159,12 +158,21 @@ int Draw::drawPaddle(GLuint VAO)
 		 1 - 18.0f / width,			 yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top right
 		 1 - 18.0f / width,			-yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom right
 		 1 - 18.0f / width - xDim,	-yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom left
-		 1 - 18.0f / width - xDim,   yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top left 
+		 1 - 18.0f / width - xDim,   yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top left
+
+		 // positions										 // colors
+		 18.0f / width + xDim - 1,   yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top right
+		 18.0f / width + xDim - 1,	-yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom right
+		 18.0f / width - 1,			-yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom left
+		 18.0f / width - 1,			 yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top left
 	};
 
 	unsigned int indices[] = {
 		0, 1, 3, // first triangle
-		1, 2, 3  // second triangle
+		1, 2, 3, // second triangle
+
+		4, 5, 7, // third triangle
+		5, 6, 7  // fourth trinagle
 	};
 
 	GLuint VBO, EBO;
