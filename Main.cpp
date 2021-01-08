@@ -38,7 +38,7 @@ int main()
 	Draw draw;
 	draw.update();
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	CHECK_ERROR();
 
