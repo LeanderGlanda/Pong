@@ -53,7 +53,7 @@ int main()
 	// Render-Loop
 	while (!glfwWindowShouldClose(window))
 	{
-		updatePaddle(draw);
+		updateRightPaddle(draw);
 
 		draw.update();
 

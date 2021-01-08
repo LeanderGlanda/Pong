@@ -19,7 +19,7 @@
 }
 
 GLuint createShader(const char* vertexFilename, const char* fragmentFilename);
-void updatePaddle(Draw& draw);
+void updateRightPaddle(Draw& draw);
 
 extern int height;
 extern int width;
