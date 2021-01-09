@@ -61,7 +61,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glUseProgram(backgroundShader);
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			glBindVertexArray(draw.VAO[i]);
 			glDrawElements(GL_TRIANGLES, draw.vertexCount[i], GL_UNSIGNED_INT, 0);

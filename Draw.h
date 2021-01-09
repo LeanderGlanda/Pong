@@ -5,11 +5,15 @@ class Draw
 	int drawBackgroundImage(GLuint VAO);
 	int drawOverlay(GLuint VAO);
 	int drawPaddle(GLuint VAO);
+	int drawBall(GLuint VAO);
 
 public:
-	GLuint VAO[3];
-	int vertexCount[3];
+	GLuint VAO[4];
+	int vertexCount[4];
+	
 	float yOffset;
+	float ballCordX;
+	float ballCordY;
 
 	struct Vertex;
 
