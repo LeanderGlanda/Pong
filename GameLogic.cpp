@@ -4,24 +4,29 @@ bool rightPaddleDirectionUp = true;
 
 void updateRightPaddle(Draw& draw)
 {
-	float yOffsetMax = 1 - (36.0f / (height / 2)) - 144.0f / height;
+	float rightPaddleYMax = 1 - (36.0f / (height / 2)) - 144.0f / height;
 	if (rightPaddleDirectionUp)
 	{
-		draw.yOffset += 0.01f;
-		if (draw.yOffset > yOffsetMax)
+		draw.rightPaddleY += 0.01f;
+		if (draw.rightPaddleY > rightPaddleYMax)
 		{
 			rightPaddleDirectionUp = false;
-			draw.yOffset = yOffsetMax;
+			draw.rightPaddleY = rightPaddleYMax;
 		}
 	}
 	else
 	{
-		draw.yOffset -= 0.01f;
-		if (draw.yOffset - 0.01f < -yOffsetMax)
+		draw.rightPaddleY -= 0.01f;
+		if (draw.rightPaddleY - 0.01f < -rightPaddleYMax)
 		{
 			rightPaddleDirectionUp = true;
-			draw.yOffset = -yOffsetMax;
+			draw.rightPaddleY = -rightPaddleYMax;
 		}
 	}
-	std::cout << "Right paddle: " << draw.yOffset << "\n";
+	//std::cout << "Right paddle: " << draw.rightPaddleY << "\n";
+}
+
+void updateBall(Draw& draw)
+{
+	
 }

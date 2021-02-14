@@ -12,7 +12,7 @@ Draw::Draw()
 	vertexCount[1] = 0;
 	vertexCount[2] = 0;
 	vertexCount[3] = 0;
-	yOffset = 0.0f;
+	rightPaddleY = 0.0f;
 	ballCordX = 0.0f;
 	ballCordY = 0.0f;
 }
@@ -157,16 +157,16 @@ int Draw::drawPaddle(GLuint VAO)
 	float yDim = 144.0f / height;
 	float vertices[] = {
 		// positions										 // colors
-		 1 - 18.0f / width,			 yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top right
-		 1 - 18.0f / width,			-yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom right
-		 1 - 18.0f / width - xDim,	-yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom left
-		 1 - 18.0f / width - xDim,   yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top left
+		 1 - 18.0f / width,			 yDim + rightPaddleY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top right
+		 1 - 18.0f / width,			-yDim + rightPaddleY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom right
+		 1 - 18.0f / width - xDim,	-yDim + rightPaddleY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom left
+		 1 - 18.0f / width - xDim,   yDim + rightPaddleY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top left
 
 		 // positions										 // colors
-		 18.0f / width + xDim - 1,   yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top right
-		 18.0f / width + xDim - 1,	-yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom right
-		 18.0f / width - 1,			-yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom left
-		 18.0f / width - 1,			 yDim + yOffset, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top left
+		 18.0f / width + xDim - 1,   yDim + rightPaddleY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top right
+		 18.0f / width + xDim - 1,	-yDim + rightPaddleY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom right
+		 18.0f / width - 1,			-yDim + rightPaddleY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom left
+		 18.0f / width - 1,			 yDim + rightPaddleY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top left
 	};
 
 	unsigned int indices[] = {

@@ -11,7 +11,7 @@ public:
 	GLuint VAO[4];
 	int vertexCount[4];
 	
-	float yOffset;
+	float rightPaddleY;
 	float ballCordX;
 	float ballCordY;
 
