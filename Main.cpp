@@ -5,6 +5,17 @@ int height = 720;
 
 void framebuffer_size_callback(GLFWwindow* window, int _width, int _height);
 
+void printFPS() {
+	static std::chrono::time_point<std::chrono::steady_clock> oldTime = std::chrono::high_resolution_clock::now();
+	static int fps; fps++;
+
+	if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - oldTime) >= std::chrono::seconds{ 1 }) {
+		oldTime = std::chrono::high_resolution_clock::now();
+		std::cout << "FPS: " << fps << "\n";
+		fps = 0;
+	}
+}
+
 int main()
 {
 	// glfw: initialize and configure
@@ -68,6 +79,8 @@ int main()
 		}
 
 		std::this_thread::sleep_for(10ms);
+
+		printFPS();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
