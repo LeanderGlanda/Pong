@@ -2,10 +2,20 @@
 
 bool rightPaddleDirectionUp = true;
 
-void updateRightPaddle(Draw& draw)
+void updateRightPaddle(Draw& draw, GLFWwindow* window)
 {
+	double xpos, ypos;
+	glfwGetCursorPos(window, &xpos, &ypos);
+
 	float rightPaddleYMax = 1 - (36.0f / (height / 2)) - 144.0f / height;
-	if (rightPaddleDirectionUp)
+
+	draw.rightPaddleY = 1 - (ypos * 2 / (height));
+
+	if (draw.rightPaddleY > rightPaddleYMax)
+		draw.rightPaddleY = rightPaddleYMax;
+	else if (draw.rightPaddleY < -rightPaddleYMax)
+		draw.rightPaddleY = -rightPaddleYMax;
+	/*if (rightPaddleDirectionUp)
 	{
 		draw.rightPaddleY += 0.01f;
 		if (draw.rightPaddleY > rightPaddleYMax)
@@ -22,7 +32,7 @@ void updateRightPaddle(Draw& draw)
 			rightPaddleDirectionUp = true;
 			draw.rightPaddleY = -rightPaddleYMax;
 		}
-	}
+	}*/
 	//std::cout << "Right paddle: " << draw.rightPaddleY << "\n";
 }
 
