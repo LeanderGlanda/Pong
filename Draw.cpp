@@ -212,10 +212,10 @@ int Draw::drawBall(GLuint VAO)
 	float yDim = 36.0f / height;
 	float vertices[] = {
 		// positions								   // colors
-		  xDim,	 yDim, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top right
-		  xDim,	-yDim, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom right
-		 -xDim,	-yDim, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom left
-		 -xDim,  yDim, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top left
+		  xDim + ballCordX,	 yDim + ballCordY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top right
+		  xDim + ballCordX,	-yDim + ballCordY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom right
+		 -xDim + ballCordX,	-yDim + ballCordY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom left
+		 -xDim + ballCordX,  yDim + ballCordY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top left
 	};
 
 	unsigned int indices[] = {

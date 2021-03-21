@@ -65,6 +65,7 @@ int main()
 	while (!glfwWindowShouldClose(window))
 	{
 		updateRightPaddle(draw);
+		updateBall(draw);
 
 		draw.update();
 
