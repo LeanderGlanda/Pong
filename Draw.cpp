@@ -1,10 +1,5 @@
 #include "Main.h"
 
-struct Draw::Vertex
-{
-	float x, y, z, r, g, b, a;
-};
-
 Draw::Draw()
 {
 	glGenVertexArrays(4, VAO);
@@ -15,7 +10,11 @@ Draw::Draw()
 	rightPaddleY = 0.0f;
 	ballCordX = 0.0f;
 	ballCordY = 0.0f;
+	rightPaddle = { 0.0f, 0.0f, 0.0f, 0.0f };
+	leftPaddle = { 0.0f, 0.0f, 0.0f, 0.0f };
+	ball = { 0.0f, 0.0f, 0.0f, 0.0f };
 }
+
 Draw::~Draw()
 {
 	glDeleteVertexArrays(4, VAO);
@@ -153,20 +152,18 @@ int Draw::drawOverlay(GLuint VAO)
 int Draw::drawPaddle(GLuint VAO)
 {
 	// create the vertices and the indices
-	float xDim = 72.0f / width;
-	float yDim = 144.0f / height;
 	float vertices[] = {
-		// positions										 // colors
-		 1 - 18.0f / width,			 yDim + rightPaddleY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top right
-		 1 - 18.0f / width,			-yDim + rightPaddleY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom right
-		 1 - 18.0f / width - xDim,	-yDim + rightPaddleY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom left
-		 1 - 18.0f / width - xDim,   yDim + rightPaddleY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top left
-
-		 // positions										 // colors
-		 18.0f / width + xDim - 1,   yDim + rightPaddleY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top right
-		 18.0f / width + xDim - 1,	-yDim + rightPaddleY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom right
-		 18.0f / width - 1,			-yDim + rightPaddleY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom left
-		 18.0f / width - 1,			 yDim + rightPaddleY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top left
+		// positions									// colors
+		rightPaddle.right,	rightPaddle.top,	0.2f,	0.0f, 0.0f, 0.0f, 1.0f, // top right
+		rightPaddle.right,	rightPaddle.bottom,	0.2f,	0.0f, 0.0f, 0.0f, 1.0f, // bottom right
+		rightPaddle.left,	rightPaddle.bottom,	0.2f,	0.0f, 0.0f, 0.0f, 1.0f, // bottom left
+		rightPaddle.left,	rightPaddle.top,	0.2f,	0.0f, 0.0f, 0.0f, 1.0f, // top left
+		
+		// positions									// colors
+		leftPaddle.right,	leftPaddle.top,		0.2f,	0.0f, 0.0f, 0.0f, 1.0f, // top right
+		leftPaddle.right,	leftPaddle.bottom,	0.2f,	0.0f, 0.0f, 0.0f, 1.0f, // bottom right
+		leftPaddle.left,	leftPaddle.bottom,	0.2f,	0.0f, 0.0f, 0.0f, 1.0f, // bottom left
+		leftPaddle.left,	leftPaddle.top,		0.2f,	0.0f, 0.0f, 0.0f, 1.0f, // top left
 	};
 
 	unsigned int indices[] = {
@@ -208,14 +205,12 @@ int Draw::drawPaddle(GLuint VAO)
 int Draw::drawBall(GLuint VAO)
 {
 	// create the vertices and the indices
-	float xDim = 36.0f / width;
-	float yDim = 36.0f / height;
 	float vertices[] = {
-		// positions								   // colors
-		  xDim + ballCordX,	 yDim + ballCordY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top right
-		  xDim + ballCordX,	-yDim + ballCordY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom right
-		 -xDim + ballCordX,	-yDim + ballCordY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom left
-		 -xDim + ballCordX,  yDim + ballCordY, 0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top left
+		// positions						// colors
+		ball.right,	ball.top,		0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top right
+		ball.right,	ball.bottom,	0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom right
+		ball.left,	ball.bottom,	0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom left
+		ball.left,	ball.top,		0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top left
 	};
 
 	unsigned int indices[] = {

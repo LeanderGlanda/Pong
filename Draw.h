@@ -15,7 +15,18 @@ public:
 	float ballCordX;
 	float ballCordY;
 
-	struct Vertex;
+	struct Vertex
+	{
+		float x, y, z, r, g, b, a;
+	};
+	struct Rectangle
+	{
+		float top, bottom, right, left;
+	};
+
+	Rectangle rightPaddle;
+	Rectangle leftPaddle;
+	Rectangle ball;
 
 	void update();
 

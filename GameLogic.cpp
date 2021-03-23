@@ -8,13 +8,31 @@ void updateRightPaddle(Draw& draw, GLFWwindow* window)
 	glfwGetCursorPos(window, &xpos, &ypos);
 
 	float rightPaddleYMax = 1 - (36.0f / (height / 2)) - 144.0f / height;
+	float rightPaddleY = 1 - ((float)ypos * 2 / (height));
 
-	draw.rightPaddleY = 1 - (ypos * 2 / (height));
+	if (rightPaddleY > rightPaddleYMax)
+		rightPaddleY = rightPaddleYMax;
+	else if (rightPaddleY < -rightPaddleYMax)
+		rightPaddleY = -rightPaddleYMax;
 
-	if (draw.rightPaddleY > rightPaddleYMax)
-		draw.rightPaddleY = rightPaddleYMax;
-	else if (draw.rightPaddleY < -rightPaddleYMax)
-		draw.rightPaddleY = -rightPaddleYMax;
+	// Set the coords of the paddle
+	// Used for drawing
+	
+	float xDim = 72.0f / width;
+	float yDim = 144.0f / height;
+
+	draw.rightPaddle.right = 1.0f - 18.0f / width;
+	draw.rightPaddle.left = 1.0f - 18.0f / width - xDim;
+	draw.rightPaddle.top = yDim + rightPaddleY;
+	draw.rightPaddle.bottom = -yDim + rightPaddleY;
+
+	// No different height calculations for left paddle right now, so we set its coords here
+
+	draw.leftPaddle.right = 18.0f / width - 1.0f;
+	draw.leftPaddle.left = 18.0f / width + xDim - 1.0f;
+	draw.leftPaddle.top = yDim + rightPaddleY;
+	draw.leftPaddle.bottom = -yDim + rightPaddleY;
+
 	/*if (rightPaddleDirectionUp)
 	{
 		draw.rightPaddleY += 0.01f;
@@ -59,12 +77,22 @@ void updateBall(Draw& draw)
 	// Move the ball in the right direction
 
 	if (directionRight)
-		draw.ballCordX += 0.01;
+		draw.ballCordX += 0.01f;
 	else
-		draw.ballCordX -= 0.01;
+		draw.ballCordX -= 0.01f;
 
 	if (directionUp)
-		draw.ballCordY += 0.01;
+		draw.ballCordY += 0.01f;
 	else
-		draw.ballCordY -= 0.01;
+		draw.ballCordY -= 0.01f;
+
+	// Calcuate drawing positions of ball
+
+	float xDim = 36.0f / width;
+	float yDim = 36.0f / height;
+
+	draw.ball.right = xDim + draw.ballCordX;
+	draw.ball.left = -xDim + draw.ballCordX;
+	draw.ball.top = yDim + draw.ballCordY;
+	draw.ball.bottom = -yDim + draw.ballCordY;
 }
