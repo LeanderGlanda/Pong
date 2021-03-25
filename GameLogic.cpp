@@ -86,6 +86,22 @@ void updateBall(Draw& draw)
 	else
 		draw.ballCordY -= 0.01f;
 
+	// Check if the ball should bouce of a paddle
+
+	if (draw.ballCordX + 36.0f / width >= draw.rightPaddle.left &&
+		draw.ballCordX + 36.0f / width <= draw.rightPaddle.right &&
+		draw.ballCordY <= draw.rightPaddle.top &&
+		draw.ballCordY >= draw.rightPaddle.bottom)
+	{
+		// The ball should bounce off the paddle
+		// We align the ball to the paddle, so it looks pretty
+
+		std::cout << "Hit!\n";
+		directionRight = !directionRight;
+		float moveOffset = draw.rightPaddle.left - (draw.ballCordX + 36.0f / width);
+		draw.ballCordX += moveOffset;
+	}
+
 	// Calcuate drawing positions of ball
 
 	float xDim = 36.0f / width;
