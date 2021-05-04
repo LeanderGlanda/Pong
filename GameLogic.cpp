@@ -60,17 +60,17 @@ void updateBall(Draw& draw)
 	static bool directionRight = true;
 	static bool directionUp = true;
 
-	float ballYMax = 1 - (36.0f / (height / 2)) - 36.0f / height;
+	float ballYMax = 1 - (36.0f / (height / 2));
 	float ballXMax = 1.0f;
 
 	// Check if the ball should bounce off
 	// If the ball escapes, which shouldn't happen, it will constantly change direction, 
 	// which results in not coming back
 
-	if (draw.ballCordY >= ballYMax || draw.ballCordY <= -ballYMax)
+	if (draw.ball.top >= ballYMax || draw.ball.bottom <= -ballYMax)
 		directionUp = !directionUp;
 
-	if (draw.ballCordX >= ballXMax || draw.ballCordX <= -ballXMax)
+	if (draw.ball.right >= ballXMax || draw.ball.left <= -ballXMax)
 		// Shouldn't bounce here, the player lost
 		directionRight = !directionRight;
 
