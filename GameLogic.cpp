@@ -83,17 +83,14 @@ void updateBall(Draw& draw)
 	// If the ball escapes, which shouldn't happen, it will constantly change direction, 
 	// which results in not coming back
 
-	if (draw.ball.right >= ballXMax || draw.ball.left <= -ballXMax)
-		// Shouldn't bounce here, the player lost
-		directionRight = !directionRight;
-
 	if (directionUp)
 	{
 		draw.ball.centerY += 0.01f;
 		calculateBallBoundariesY(draw, yDim);
-		if (draw.ball.top >= ballYMax)
+		if (draw.ball.top >= ballYMax - 0.0025f)
 		{
 			draw.ball.updateCenterYByTopPos(yDim, ballYMax);
+			calculateBallBoundariesX(draw, yDim);
 			directionUp = !directionUp;
 		}
 	}
@@ -101,24 +98,17 @@ void updateBall(Draw& draw)
 	{
 		draw.ball.centerY -= 0.01f;
 		calculateBallBoundariesY(draw, yDim);
-		if (draw.ball.bottom <= -ballYMax)
+		if (draw.ball.bottom <= -(ballYMax - 0.0025f))
 		{
 			draw.ball.updateCenterYByTopBottom(yDim, -ballYMax);
-			calculateBallBoundariesY(draw, yDim);
+			calculateBallBoundariesX(draw, yDim);
 			directionUp = !directionUp;
 		}
 	}
 
-	/*if (draw.ball.top >= ballYMax)
-	{
-		draw.ballCordY -= 0.01f;
-		if (draw.ballCordY <= -ballYMax)
-			draw.ballCordY = -ballYMax;
-	}
-	if (draw.ball.bottom <= -ballYMax)
-	{
-		
-	}*/
+	if (draw.ball.right >= ballXMax || draw.ball.left <= -ballXMax)
+		// Shouldn't bounce here, the player lost
+		directionRight = !directionRight;
 
 	// Move the ball in the right direction
 
@@ -129,12 +119,7 @@ void updateBall(Draw& draw)
 
 	calculateBallBoundariesX(draw, xDim);
 
-	/*if (directionUp)
-		draw.ballCordY += 0.01f;
-	else
-		draw.ballCordY -= 0.01f;*/
-
-	// Check if the ball should bouce of a paddle
+	// Check if the ball should bounce of a paddle
 
 	if (draw.ball.centerX + 36.0f / width >= draw.rightPaddle.left &&
 		draw.ball.centerX + 36.0f / width <= draw.rightPaddle.right &&
