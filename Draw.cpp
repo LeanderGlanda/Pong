@@ -1,5 +1,12 @@
 #include "Main.h"
 
+#ifdef _DEBUG
+#define DEBUG_BACKGROUND
+//#define DEBUG_OVERLAY
+#define DEBUG_PADDLE
+#define DEBUG_BALL
+#endif
+
 Draw::Draw()
 {
 	glGenVertexArrays(4, VAO);
@@ -37,6 +44,16 @@ int Draw::drawBackgroundImage(GLuint VAO)
 		-1.0f, -1.0f, 0.0f,   0.0f, 0.0f, 1.0f, 1.0f, // bottom left
 		-1.0f,  1.0f, 0.0f,   1.0f, 1.0f, 0.0f, 1.0f, // top left 
 	};
+
+#ifdef DEBUG_BACKGROUND
+	std::cout
+		<< "Background Image Boundaries: "
+		<< "Top: " << vertices[1]
+		<< ", Bottom: " << vertices[8]
+		<< ", Right: " << vertices[0]
+		<< ", Left: " << vertices[14]
+		<< "\n";
+#endif
 
 	unsigned int indices[] = {
 		0, 1, 3, // first triangle
@@ -88,6 +105,10 @@ int Draw::drawOverlay(GLuint VAO)
 	  {-1.0f, -1.0f, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }, // bottom bottom left
 	  {-1.0f, -osTB, 0.1f,   0.0f, 0.0f, 0.0f, 0.75f }  // bottom top left 
 	};
+
+#ifdef DEBUG_OVERLAY
+#error Overlay debugging is not implemented yet.
+#endif
 
 	std::vector<GLuint> indices{
 		0, 1, 3, // first triangle
@@ -164,6 +185,22 @@ int Draw::drawPaddle(GLuint VAO)
 		leftPaddle.left,	leftPaddle.top,		0.2f,	0.0f, 0.0f, 0.0f, 1.0f, // top left
 	};
 
+#ifdef DEBUG_PADDLE
+	std::cout
+		<< "Right Paddle Boundaries: "
+		<< "Top: " << rightPaddle.top
+		<< ", Bottom: " << rightPaddle.bottom
+		<< ", Right: " << rightPaddle.right
+		<< ", Left: " << rightPaddle.left
+		<< "\n"
+		<< "Left Paddle Boundaries: "
+		<< "Top: " << leftPaddle.top
+		<< ", Bottom: " << leftPaddle.bottom
+		<< ", Right: " << leftPaddle.right
+		<< ", Left: " << leftPaddle.left
+		<< "\n";
+#endif
+
 	unsigned int indices[] = {
 		0, 1, 3, // first triangle
 		1, 2, 3, // second triangle
@@ -210,6 +247,16 @@ int Draw::drawBall(GLuint VAO)
 		ball.left,	ball.bottom,	0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // bottom left
 		ball.left,	ball.top,		0.2f,   0.0f, 0.0f, 0.0f, 1.0f, // top left
 	};
+
+#ifdef DEBUG_BALL
+	std::cout
+		<< "Ball Boundaries: "
+		<< "Top: " << ball.top
+		<< ", Bottom: " << ball.bottom
+		<< ", Right: " << ball.right
+		<< ", Left: " << ball.left
+		<< "\n";
+#endif
 
 	unsigned int indices[] = {
 		0, 1, 3, // first triangle
