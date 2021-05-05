@@ -54,11 +54,27 @@ void updateRightPaddle(Draw& draw, GLFWwindow* window)
 	//std::cout << "Right paddle: " << draw.rightPaddleY << "\n";
 }
 
+inline void calculateBallBoundariesY(Draw& draw, float yDim)
+{
+	draw.ball.top = yDim + draw.ball.centerY;
+	draw.ball.bottom = -yDim + draw.ball.centerY;
+}
+
+inline void calculateBallBoundariesX(Draw& draw, float xDim)
+{
+	draw.ball.right = xDim + draw.ball.centerX;
+	draw.ball.left = -xDim + draw.ball.centerX;
+}
+
 void updateBall(Draw& draw)
 {
 	// Should be moved to the draw class
 	static bool directionRight = true;
 	static bool directionUp = true;
+
+	// Ball dimensions
+	float xDim = 36.0f / width;
+	float yDim = 36.0f / height;
 
 	float ballYMax = 1 - (36.0f / (height / 2));
 	float ballXMax = 1.0f;
@@ -67,48 +83,70 @@ void updateBall(Draw& draw)
 	// If the ball escapes, which shouldn't happen, it will constantly change direction, 
 	// which results in not coming back
 
-	if (draw.ball.top >= ballYMax || draw.ball.bottom <= -ballYMax)
-		directionUp = !directionUp;
-
 	if (draw.ball.right >= ballXMax || draw.ball.left <= -ballXMax)
 		// Shouldn't bounce here, the player lost
 		directionRight = !directionRight;
 
+	if (directionUp)
+	{
+		draw.ball.centerY += 0.01f;
+		calculateBallBoundariesY(draw, yDim);
+		if (draw.ball.top >= ballYMax)
+		{
+			draw.ball.updateCenterYByTopPos(yDim, ballYMax);
+			directionUp = !directionUp;
+		}
+	}
+	else
+	{
+		draw.ball.centerY -= 0.01f;
+		calculateBallBoundariesY(draw, yDim);
+		if (draw.ball.bottom <= -ballYMax)
+		{
+			draw.ball.updateCenterYByTopBottom(yDim, -ballYMax);
+			calculateBallBoundariesY(draw, yDim);
+			directionUp = !directionUp;
+		}
+	}
+
+	/*if (draw.ball.top >= ballYMax)
+	{
+		draw.ballCordY -= 0.01f;
+		if (draw.ballCordY <= -ballYMax)
+			draw.ballCordY = -ballYMax;
+	}
+	if (draw.ball.bottom <= -ballYMax)
+	{
+		
+	}*/
+
 	// Move the ball in the right direction
 
 	if (directionRight)
-		draw.ballCordX += 0.01f;
+		draw.ball.centerX += 0.01f;
 	else
-		draw.ballCordX -= 0.01f;
+		draw.ball.centerX -= 0.01f;
 
-	if (directionUp)
+	calculateBallBoundariesX(draw, xDim);
+
+	/*if (directionUp)
 		draw.ballCordY += 0.01f;
 	else
-		draw.ballCordY -= 0.01f;
+		draw.ballCordY -= 0.01f;*/
 
 	// Check if the ball should bouce of a paddle
 
-	if (draw.ballCordX + 36.0f / width >= draw.rightPaddle.left &&
-		draw.ballCordX + 36.0f / width <= draw.rightPaddle.right &&
-		draw.ballCordY <= draw.rightPaddle.top &&
-		draw.ballCordY >= draw.rightPaddle.bottom)
+	if (draw.ball.centerX + 36.0f / width >= draw.rightPaddle.left &&
+		draw.ball.centerX + 36.0f / width <= draw.rightPaddle.right &&
+		draw.ball.centerY <= draw.rightPaddle.top &&
+		draw.ball.centerY >= draw.rightPaddle.bottom)
 	{
 		// The ball should bounce off the paddle
 		// We align the ball to the paddle, so it looks pretty
 
 		std::cout << "Hit!\n";
 		directionRight = !directionRight;
-		float moveOffset = draw.rightPaddle.left - (draw.ballCordX + 36.0f / width);
-		draw.ballCordX += moveOffset;
+		float moveOffset = draw.rightPaddle.left - (draw.ball.centerX + 36.0f / width);
+		draw.ball.centerX += moveOffset;
 	}
-
-	// Calcuate drawing positions of ball
-
-	float xDim = 36.0f / width;
-	float yDim = 36.0f / height;
-
-	draw.ball.right = xDim + draw.ballCordX;
-	draw.ball.left = -xDim + draw.ballCordX;
-	draw.ball.top = yDim + draw.ballCordY;
-	draw.ball.bottom = -yDim + draw.ballCordY;
 }

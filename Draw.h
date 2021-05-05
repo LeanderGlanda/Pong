@@ -12,8 +12,6 @@ public:
 	int vertexCount[4];
 	
 	float rightPaddleY;
-	float ballCordX;
-	float ballCordY;
 
 	struct Vertex
 	{
@@ -21,7 +19,17 @@ public:
 	};
 	struct Rectangle
 	{
-		float top, bottom, right, left;
+		float top, bottom, right, left, centerY, centerX;
+		inline void updateCenterYByTopPos(float yDim, float newTop)
+		{
+			top = newTop;
+			centerY = top - yDim;
+		}
+		inline void updateCenterYByTopBottom(float yDim, float newBottom)
+		{
+			bottom = newBottom;
+			centerY = bottom + yDim;
+		}
 	};
 
 	Rectangle rightPaddle;

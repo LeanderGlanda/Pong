@@ -8,11 +8,9 @@ Draw::Draw()
 	vertexCount[2] = 0;
 	vertexCount[3] = 0;
 	rightPaddleY = 0.0f;
-	ballCordX = 0.0f;
-	ballCordY = 0.0f;
-	rightPaddle = { 0.0f, 0.0f, 0.0f, 0.0f };
-	leftPaddle = { 0.0f, 0.0f, 0.0f, 0.0f };
-	ball = { 0.0f, 0.0f, 0.0f, 0.0f };
+	rightPaddle = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+	leftPaddle = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+	ball = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
 }
 
 Draw::~Draw()
