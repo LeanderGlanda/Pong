@@ -121,10 +121,14 @@ void updateBall(Draw& draw)
 
 	// Check if the ball should bounce of a paddle
 
-	if (draw.ball.centerX + 36.0f / width >= draw.rightPaddle.left &&
-		draw.ball.centerX + 36.0f / width <= draw.rightPaddle.right &&
-		draw.ball.centerY <= draw.rightPaddle.top &&
-		draw.ball.centerY >= draw.rightPaddle.bottom)
+	// TODO:
+	// The ball doesn't bouce off the top or bottom, which it should.
+	// Add left paddle, some if's could probably be done for both at the same time (?)
+
+	if (draw.ball.right >= draw.rightPaddle.left &&
+		draw.ball.left <= draw.rightPaddle.right &&
+		draw.ball.centerY <= draw.rightPaddle.top &&	// faulty
+		draw.ball.centerY >= draw.rightPaddle.bottom)	// faulty
 	{
 		// The ball should bounce off the paddle
 		// We align the ball to the paddle, so it looks pretty
