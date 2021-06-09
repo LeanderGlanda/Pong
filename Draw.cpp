@@ -1,9 +1,9 @@
 #include "Main.h"
 
 #ifdef _DEBUG
-#define DEBUG_BACKGROUND
+//#define DEBUG_BACKGROUND
 //#define DEBUG_OVERLAY
-#define DEBUG_PADDLE
+//#define DEBUG_PADDLE
 #define DEBUG_BALL
 #endif
 

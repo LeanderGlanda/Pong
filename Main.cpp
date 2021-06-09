@@ -79,11 +79,11 @@ int main()
 			glDrawElements(GL_TRIANGLES, draw.vertexCount[i], GL_UNSIGNED_INT, 0);
 		}
 
-		if (draw.ball.centerX >= 0.85)
+		/*if (draw.ball.centerX >= 0.85)
 			std::this_thread::sleep_for(1000ms);
-		else
-			std::this_thread::sleep_for(100ms);
-
+		else*/
+			std::this_thread::sleep_for(10ms);
+			 
 		printFPS();
 
 		glfwSwapBuffers(window);
