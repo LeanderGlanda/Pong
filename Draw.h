@@ -30,6 +30,11 @@ public:
 			bottom = newBottom;
 			centerY = bottom + yDim;
 		}
+		inline void updateCenterXByTopRight(float xDim, float newRight)
+		{
+			right = newRight;
+			centerX = right - xDim;
+		}
 	};
 
 	Rectangle rightPaddle;

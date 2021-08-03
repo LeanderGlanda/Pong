@@ -125,7 +125,7 @@ void updateBall(Draw& draw)
 	// The ball doesn't bouce off the top or bottom, which it should.
 	// Add left paddle, some if's could probably be done for both at the same time (?)
 
-	if (draw.ball.right >= draw.rightPaddle.left &&
+	if (draw.ball.right + 0.0025 >= draw.rightPaddle.left &&
 		draw.ball.left <= draw.rightPaddle.right &&
 		draw.ball.centerY <= draw.rightPaddle.top &&	// faulty
 		draw.ball.centerY >= draw.rightPaddle.bottom)	// faulty
@@ -135,7 +135,7 @@ void updateBall(Draw& draw)
 
 		std::cout << "Hit!\n";
 		directionRight = !directionRight;
-		float moveOffset = draw.rightPaddle.left - (draw.ball.centerX + 36.0f / width);
-		draw.ball.centerX += moveOffset;
+		draw.ball.updateCenterXByTopRight(xDim, draw.rightPaddle.left);
+		calculateBallBoundariesX(draw, xDim);
 	}
 }
