@@ -60,12 +60,21 @@ int main()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	int frameCounter = 5;
+
 	using namespace std::chrono_literals;
 	// Render-Loop
 	while (!glfwWindowShouldClose(window))
 	{
+		if (frameCounter >= 1 && glfwGetKey(window, GLFW_KEY_SPACE) != GLFW_PRESS ||
+			frameCounter >= 50 && glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+		{
+			updateBall(draw);
+			frameCounter = 0;
+		}
+		frameCounter++;
+
 		updateRightPaddle(draw, window);
-		updateBall(draw);
 
 		draw.update();
 
@@ -79,7 +88,8 @@ int main()
 			glDrawElements(GL_TRIANGLES, draw.vertexCount[i], GL_UNSIGNED_INT, 0);
 		}
 
-		/*if (draw.ball.centerX >= 0.85)
+		//if (draw.ball.centerX >= 0.85)
+		/*sif (glfwGetKey(window, GLFW_KEY_SPACE))
 			std::this_thread::sleep_for(1000ms);
 		else*/
 			std::this_thread::sleep_for(10ms);
