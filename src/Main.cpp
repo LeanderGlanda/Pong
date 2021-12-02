@@ -53,7 +53,7 @@ int main()
 
 	CHECK_ERROR();
 
-	GLuint backgroundShader = createShader("vertexShader.glsl", "fragmentShader.glsl");
+	GLuint backgroundShader = createShader("src/shaders/vertexShader.glsl", "src/shaders/fragmentShader.glsl");
 
 
 	// Enable blending
