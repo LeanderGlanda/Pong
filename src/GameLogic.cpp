@@ -140,20 +140,24 @@ void updateBall(Draw& draw)
 	// 	* if the ball is not too far right
 	// 
 
+	// check if we should bounce off the left side of the right paddle
 	if (draw.ball.right + 0.0025 >= draw.rightPaddle.left &&
-		draw.ball.left <= draw.rightPaddle.right &&
-		draw.ball.bottom <= draw.rightPaddle.top &&	// faulty
-		draw.ball.top >= draw.rightPaddle.bottom)	// faulty
+		draw.ball.right <= draw.rightPaddle.right + 0.0025 &&
+		draw.ball.top <= draw.rightPaddle.top &&
+		draw.ball.bottom >= draw.rightPaddle.bottom)
 	{
 		// The ball should bounce off the paddle
 		// We align the ball to the paddle, so it looks pretty
 
-		std::cout << "Hit!\n";
+		std::cout << "Hit left!\n";
 		directionRight = !directionRight;
 
 		// The ball bounces off the bottom, but teleports to the left with this.
 
-		if (draw.ball.right + 0.0025 >= draw.rightPaddle.left)
+		draw.ball.updateCenterXByTopRight(xDim, draw.rightPaddle.left);
+		calculateBallBoundariesX(draw, xDim);
+
+		/*if (draw.ball.right + 0.0025 >= draw.rightPaddle.left)
 		{
 			draw.ball.updateCenterXByTopRight(xDim, draw.rightPaddle.left);
 			calculateBallBoundariesX(draw, xDim);
@@ -162,6 +166,29 @@ void updateBall(Draw& draw)
 		{
 			draw.ball.updateCenterYByTopPos(xDim, draw.rightPaddle.bottom);
 			calculateBallBoundariesY(draw, xDim);
-		}
+		}*/
+	}
+	// check if we should bounce off the top of the right paddle
+	else if (//draw.ball.right <= draw.rightPaddle.right &&
+			 draw.ball.right >= draw.rightPaddle.left &&
+			 draw.ball.bottom - 0.0025 <= draw.rightPaddle.top &&
+			 draw.ball.bottom - 0.0025 >= draw.rightPaddle.centerY)
+	{
+		std::cout << "Hit top!\n";
+		directionRight = !directionRight;
+		directionUp = !directionUp;
+
+		//draw.ball.updateCenterYByTopBottom(yDim, draw.rightPaddle.top);
+		//calculateBallBoundariesX(draw, yDim);
+	}
+	// check if we should bounce off the bottom of the right paddle
+	else if (//draw.ball.left <= draw.rightPaddle.right &&
+			 draw.ball.right >= draw.rightPaddle.left &&
+			 draw.ball.top + 0.0025 >= draw.rightPaddle.bottom &&
+			 draw.ball.top + 0.0025 <= draw.rightPaddle.centerY)
+	{
+		std::cout << "Hit bottom!\n";
+		directionRight = !directionRight;
+		directionUp = !directionUp;
 	}
 }
