@@ -125,17 +125,43 @@ void updateBall(Draw& draw)
 	// The ball doesn't bouce off the top or bottom, which it should.
 	// Add left paddle, some if's could probably be done for both at the same time (?)
 
+	// What are the cases?
+	//
+	// The ball can jump off of the paddle at the left. This requires checking
+	// * if the ball is actually at the left of the paddle (also align the ball to there)
+	// * if it is not above or bellow the paddle
+	// 
+	// The ball can jump off the bottom. This requires checking
+	// * if the ball is right under the paddle
+	// * if the ball is not too far right
+	// 
+	// The ball can jump off the top. This requires checking
+	// 	* if the ball is right above the paddle
+	// 	* if the ball is not too far right
+	// 
+
 	if (draw.ball.right + 0.0025 >= draw.rightPaddle.left &&
 		draw.ball.left <= draw.rightPaddle.right &&
-		draw.ball.centerY <= draw.rightPaddle.top &&	// faulty
-		draw.ball.centerY >= draw.rightPaddle.bottom)	// faulty
+		draw.ball.bottom <= draw.rightPaddle.top &&	// faulty
+		draw.ball.top >= draw.rightPaddle.bottom)	// faulty
 	{
 		// The ball should bounce off the paddle
 		// We align the ball to the paddle, so it looks pretty
 
 		std::cout << "Hit!\n";
 		directionRight = !directionRight;
-		draw.ball.updateCenterXByTopRight(xDim, draw.rightPaddle.left);
-		calculateBallBoundariesX(draw, xDim);
+
+		// The ball bounces off the bottom, but teleports to the left with this.
+
+		if (draw.ball.right + 0.0025 >= draw.rightPaddle.left)
+		{
+			draw.ball.updateCenterXByTopRight(xDim, draw.rightPaddle.left);
+			calculateBallBoundariesX(draw, xDim);
+		}
+		else
+		{
+			draw.ball.updateCenterYByTopPos(xDim, draw.rightPaddle.bottom);
+			calculateBallBoundariesY(draw, xDim);
+		}
 	}
 }
